@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Royal Tee | Product Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,400|Montserrat:400,600&display=swap" rel="stylesheet">
+    <style>
+        html {
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+    :root {
+        --primary: #102E50;
+        --secondary: #1A3C6B;
+        --accent: #8DD8FF;
+        --background: #F4F6FF;
+        --white: #fff;
+        --gray: #e5e9f2;
+        --font-title: 'Playfair Display', serif;
+        --font-body: 'Montserrat', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        background: var(--background);
+        color: var(--primary);
+        font-family: var(--font-body);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+    }
+    /* Navbar */
+    nav {
+        background: var(--primary);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        --nav-hover-bg: var(--accent);
+    }
+    /* Solid background when scrolled or hovered */
+    nav.scrolled {
+        background: var(--white); /* solid white background */
+        color: var(--primary);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    nav:hover {
+        background: var(--white);
+        color: var(--primary);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    /*Adjust nav links color on scroll */
+    nav.scrolled .nav-links a {
+        color: var(--primary);
+    }
+    nav:hover .nav-links a {
+        color: var(--primary);
+    }
+    nav.scrolled .nav-links a:hover {
+        color: var(--accent);
+    }
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .logo-image {
+    height: 50px; /* ikut saiz  */
+    width: auto;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+    .logo-image:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s ease;
+    }
+    .logo-placeholder {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary);
+        font-weight: bold;
+    }
+    .brand-name {
+        font-family: var(--font-title);
+        font-size: 1.7rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        font-size: 1.1rem;
+    }
+    .nav-links a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+        font-size: 16px;
+    }
+    .nav-links a:hover {
+        color: var(--accent);
+    }
+    .nav-cart {
+        font-size: 1.3rem;
+        cursor: pointer;
+        position: relative;
+    }
+    .cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--accent);
+  color: var(--primary);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.cart-count.bump {
+  transform: scale(1.3);
+}
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(16,46,80,0.08);
+            padding: 40px 32px 32px 32px;
+        }
+        .product-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+        }
+        .product-images {
+            flex: 1 1 350px;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-image {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 2px solid var(--gray);
+            background: var(--gray);
+        }
+        .thumbnails {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .thumbnail {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: border 0.2s;
+        }
+        .thumbnail.selected {
+            border: 2px solid var(--accent);
+        }
+        .product-info {
+            flex: 2 1 400px;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .product-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-family: 'Georgia', serif;
+        }
+        .product-desc {
+            color: #2d3d5a;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .product-price {
+            color: var(--primary);
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .options-row {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .size-select {
+            padding: 8px 18px;
+            border-radius: 5px;
+            border: 1px solid var(--gray);
+            font-size: 1rem;
+            background: var(--background);
+            color: var(--primary);
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .qty-btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .qty-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .qty-value {
+            min-width: 32px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .add-cart-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 14px 40px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 18px;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+        }
+        .add-cart-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        .related-products {
+            margin-top: 48px;
+        }
+        .related-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: var(--primary);
+        }
+        .related-list {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .related-item {
+            background: var(--background);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(16,46,80,0.06);
+            padding: 16px;
+            width: 220px;
+            text-align: center;
+            transition: box-shadow 0.2s;
+        }
+        .related-item:hover {
+            box-shadow: 0 4px 16px rgba(16,46,80,0.12);
+        }
+        .related-img {
+            width: 100%;
+            height: 140px;
+            object-fit: contain;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .related-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .related-price {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .view-detail-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.98rem;
+            font-weight: bold;
+            text-shadow: #0000006b 1px 2px 3px;
+        }
+        .view-detail-link:hover {
+            text-decoration: underline;
+        }
+ /* Newsletter */
+        .newsletter {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .newsletter-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .newsletter-input {
+            padding: 0.7rem 1.2rem;
+            border-radius: 2rem;
+            border: none;
+            font-size: 1rem;
+            min-width: 220px;
+            outline: none;
+        }
+        .newsletter-btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .newsletter-btn:hover {
+            background: #b3e6ff;
+        }
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 2rem 1rem 1rem 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        .footer-links, .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a, .footer-social a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover, .footer-social a:hover {
+            color: var(--white);
+        }
+        .footer-copy {
+            font-size: 0.95rem;
+            color: #b3c6e0;
+            margin-top: 0.5rem;
+        }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .collections-list, .footer-links, .footer-social {
+                gap: 1rem;
+            }
+            .products-grid {
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 700px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .collections-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 2.5rem 0.5rem 2rem 0.5rem;
+            }
+        }
+        @media (max-width: 900px) {
+            .container { padding: 24px 8px; }
+            .product-detail { flex-direction: column; gap: 32px; }
+            .product-images, .product-info { min-width: 0; }
+            .related-list { gap: 12px; }
+        }
+        @media (max-width: 600px) {
+            .navbar { flex-direction: column; align-items: flex-start; padding: 14px 10px; }
+            .container { margin: 16px 0; }
+            .related-list { flex-direction: column; }
+            .related-item { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <script src="script.js"></script>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-logo">
+            <div class="logo-placeholder">
+            <a href="index.html"><img src="image/Logo.png" alt="Royal Tee Logo" class="logo-image" /></a>
+            </div>
+            <span class="brand-name">Royal Tee</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="listingpage.html">Shop</a>
+            <a href="aboutUs.html">About</a>
+            <a href="Cartpage.html" class="nav-cart">
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="product-detail">
+                <div class="product-images">
+                    <img id="mainImage" class="main-image" src="https://via.placeholder.com/400x400?text=Product+Image" alt="Product Image">
+                    <div class="thumbnails" id="thumbnails">
+                        <!-- Thumbnails will be injected here -->
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title" id="productTitle">Product Name</div>
+                    <div class="product-desc" id="productDesc">
+                        Product description goes here. This section will show details about the selected product.
+                    </div>
+                    <div class="product-price" id="productPrice">$0.00</div>
+                    <div class="options-row">
+                        <label for="sizeSelect"><b>Size:</b></label>
+                        <select id="sizeSelect" class="size-select">
+                            <!-- Sizes will be injected -->
+                        </select>
+                    </div>
+                    <div class="options-row">
+                        <label><b>Quantity:</b></label>
+                        <div class="quantity-selector">
+                            <button class="qty-btn" id="decreaseQty">-</button>
+                            <span class="qty-value" id="qtyValue">1</span>
+                            <button class="qty-btn" id="increaseQty">+</button>
+                        </div>
+                    </div>
+                    <button class="add-cart-btn" id="addToCartBtn">Add to Cart</button>
+                </div>
+            </div>
+            <div class="related-products">
+                <div class="related-title">Related Products</div>
+                <div class="related-list" id="relatedList">
+                    <!-- Related products will be injected here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Newsletter / Subscribe Section -->
+    <section class="newsletter">
+        <div class="newsletter-title">Subscribe to Our Newsletter</div>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Enter email here" required>
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+        <div id="newsletterMsg" style="margin-top:1rem;font-size:1rem;"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <a href="https://www.instagram.com/royaltee_officialstore" title="Instagram" aria-label="Instagram">Instagram</a>
+            <a href="https://www.facebook.com/royal.tee.official.store" title="Facebook" aria-label="Facebook">Facebook</a>
+            <a href="https://x.com/royal_tee_store" title="Twitter" aria-label="Twitter">Twitter</a>
+        </div>
+        <div class="footer-links">
+            <a href="https://wa.me/01114478390?I'm%interested%to%know%more%about%Royal%Tee">Contact</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2025 Royal Tee. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const products = [
+            {
+                id: "1",
+                name: "Classic Polo Shirt",
+                price: "$180.00",
+                desc: "A timeless classic. Crafted from premium cotton, this polo shirt embodies the Royal Tee spirit of elegance and sophistication.",
+                images: [
+                    "image/classicpoloshirt/Poloshirt-rmvbg.png",
+                    "image/classicpoloshirt/Poloshirt-model.jpg",
+                    "image/classicpoloshirt/Poloshirt-model2.jpg"
+                ],
+                sizes: ["S", "M", "L", "XL"],
+                related: ["2", "3", "4"]
+            },
+            {
+                id: "2",
+                name: "Elite White Cap",
+                price: "$80.00",
+                desc: "Elevate your look with this modern luxury blazer, tailored for the elite. Perfect for business or leisure.",
+                images: [
+                    "image/cap/Elitecap.png"
+                    
+                ],
+                sizes: ["Free Size"],
+                related: ["1", "3", "4"]
+            },
+            {
+                id: "3",
+                name: "Heritage Chino Pants",
+                price: "$220.00",
+                desc: "Stay warm and stylish on and off the course. Features our signature golf player logo.",
+                images: [
+                    "image/chino/chinopant.png",
+                    "image/chino/chino-blue.png",
+                    "image/chino/Chinopants.jpg"
+                ],
+                sizes: ["M", "L", "XL"],
+                related: ["1", "2", "4"]
+            },
+            {
+                id: "4",
+                name: "Royal Wool Blazer",
+                price: "$650.00",
+                desc: "Smart, comfortable chinos for the discerning gentleman. A staple for any classic wardrobe.",
+                images: [
+                    "image/royalwool/Woolblazer.png",
+                    "image/royalwool/royalwool-brown.png",
+                    "image/royalwool/royalwool-white.jpg"
+                ],
+                sizes: ["M", "L"],
+                related: ["1", "2", "3"]
+            },
+            {
+                id: "5",
+                name: "Royal Sneakers",
+                price: "$125.00",
+                desc: "Smart, comfortable chinos for the discerning gentleman. A staple for any classic wardrobe.",
+                images: [
+                    "image/sneakers/royalsneakers1.png",
+                    "image/sneakers/royalsneakers2.jpg",
+                    "image/sneakers/royalsneakers3.png",
+                ],
+                sizes: ["Free Size"],
+                related: ["1", "2", "3"]
+            },
+            {
+                id: "6",
+                name: "Timeless Oxford Shirt",
+                price: "$210.00",
+                desc: "Smart, comfortable chinos for the discerning gentleman. A staple for any classic wardrobe.",
+                images: [
+                    "image/oxfordshirt/OxfordShirt.png",
+                ],
+                sizes: ["S", "M", "L"],
+                related: ["3", "2", "5"]
+            },
+            {
+                id: "7",
+                name: "Luxury Cashmere Sweater",
+                price: "$480.00",
+                desc: "Smart, comfortable chinos for the discerning gentleman. A staple for any classic wardrobe.",
+                images: [
+                    "image/sweater/Sweater.png",
+                ],
+                sizes: ["M", "L", "XL"],
+                related: ["2", "4", "6"]
+            },
+            {
+                id: "8",
+                name: "Prestige Leather Belt",
+                price: "$130.00",
+                desc: "Smart, comfortable chinos for the discerning gentleman. A staple for any classic wardrobe.",
+                images: [
+                    "image/belt/leatherbelt.png",
+                ],
+                sizes: ["Free Size"],
+                related: ["1", "4", "7"]
+            },
+            {
+                id: "9",
+                name: "Classic Linen Pants",
+                price: "$250.00",
+                desc: "Smart, comfortable chinos for the discerning gentleman. A staple for any classic wardrobe.",
+                images: [
+                    "image/linen/linenPants.png",
+                ],
+                sizes: ["S", "M", "L"],
+                related: ["1", "2", "8"]
+            }
+        ];
+
+  const getQueryParam = (param) => new URLSearchParams(window.location.search).get(param);
+  const productId = getQueryParam("id") || "1";
+  const product = products.find((p) => p.id === productId) || products[0];
+
+  let qty = 1;
+  const qtyValue = document.getElementById("qtyValue");
+  document.getElementById("decreaseQty").onclick = () => {
+    if (qty > 1) qty--;
+    qtyValue.textContent = qty;
+  };
+  document.getElementById("increaseQty").onclick = () => {
+    qty++;
+    qtyValue.textContent = qty;
+  };
+
+  // Populate UI with product info
+  document.getElementById("productTitle").textContent = product.name;
+  document.getElementById("productDesc").textContent = product.desc;
+  document.getElementById("productPrice").textContent = product.price;
+
+  const mainImage = document.getElementById("mainImage");
+  const thumbnailsDiv = document.getElementById("thumbnails");
+  mainImage.src = product.images[0];
+  mainImage.alt = product.name;
+  thumbnailsDiv.innerHTML = "";
+  product.images.forEach((img, idx) => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.alt = `${product.name} thumbnail ${idx + 1}`;
+    thumb.className = "thumbnail" + (idx === 0 ? " selected" : "");
+    thumb.addEventListener("click", () => {
+      mainImage.src = img;
+      document.querySelectorAll(".thumbnail").forEach((t) => t.classList.remove("selected"));
+      thumb.classList.add("selected");
+    });
+    thumbnailsDiv.appendChild(thumb);
+  });
+
+  const sizeSelect = document.getElementById("sizeSelect");
+  sizeSelect.innerHTML = "";
+  product.sizes.forEach((size) => {
+    const opt = document.createElement("option");
+    opt.value = size;
+    opt.textContent = size;
+    sizeSelect.appendChild(opt);
+  });
+
+  // Add to Cart logic from external script.js
+  document.getElementById("addToCartBtn").addEventListener("click", () => {
+    const selectedSize = sizeSelect.value;
+    const productItem = {
+      id: parseInt(product.id),
+      name: `${product.name} (Size: ${selectedSize})`,
+      price: parseFloat(product.price.replace("$", "")),
+      image: product.images[0],
+      quantity: qty,
+    };
+    if (typeof addToCart === 'function') {
+      addToCart(productItem);
+      if (typeof updateCartCount === 'function') updateCartCount();
+      alert(`${productItem.name} added to cart!`);
+    } else {
+      console.error("addToCart() function not found. Is script.js loaded?");
+    }
+  });
+
+  // Related products
+  const relatedList = document.getElementById("relatedList");
+  relatedList.innerHTML = "";
+  product.related.forEach((relId) => {
+    const relProd = products.find((p) => p.id === relId);
+    if (!relProd) return;
+    const div = document.createElement("div");
+    div.className = "related-item";
+    div.innerHTML = `
+      <img class="related-img" src="${relProd.images[0]}" alt="${relProd.name}">
+      <div class="related-name">${relProd.name}</div>
+      <div class="related-price">${relProd.price}</div>
+      <a class="view-detail-link" href="Productdetail.html?id=${relProd.id}">View Detail</a>
+    `;
+    relatedList.appendChild(div);
+  });
+
+  // Newsletter subscribe
+  document.getElementById("newsletterForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("newsletterEmail").value;
+    document.getElementById("newsletterMsg").textContent = "Thank you for subscribing!";
+    document.getElementById("newsletterForm").reset();
+  });
+});
+</script>
+
+</body>
+</html>

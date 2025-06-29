@@ -1,0 +1,133 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+    :root {
+        --primary: #102E50;
+        --secondary: #1A3C6B;
+        --accent: #8DD8FF;
+        --background: #F4F6FF;
+        --white: #fff;
+        --gray: #e5e9f2;
+        --font-title: 'Playfair Display', serif;
+        --font-body: 'Montserrat', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        background: var(--background);
+        color: var(--primary);
+        font-family: var(--font-body);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+    }
+    /* Navbar */
+    nav {
+        background: rgba(255, 255, 255, 0.15);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        --nav-hover-bg: var(--accent);
+    }
+    /* Solid background when scrolled or hovered */
+    nav.scrolled {
+        background: var(--white); /* solid white background */
+        color: var(--primary);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    nav:hover {
+        background: var(--white);
+        color: var(--primary);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    /*Adjust nav links color on scroll */
+    nav.scrolled .nav-links a {
+        color: var(--primary);
+    }
+    nav:hover .nav-links a {
+        color: var(--primary);
+    }
+    nav.scrolled .nav-links a:hover {
+        color: var(--accent);
+    }
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .logo-image {
+    height: 50px; /* ikut saiz  */
+    width: auto;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+    .logo-image:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s ease;
+    }
+    .logo-placeholder {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary);
+        font-weight: bold;
+    }
+    .brand-name {
+        font-family: var(--font-title);
+        font-size: 1.7rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        font-size: 1.1rem;
+    }
+    .nav-links a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+        font-size: 16px;
+    }
+    .nav-links a:hover {
+        color: var(--accent);
+    }
+    .nav-cart {
+        font-size: 1.3rem;
+        cursor: pointer;
+        position: relative;
+    }
+    .cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--accent);
+  color: var(--primary);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.cart-count.bump {
+  transform: scale(1.3);
+}

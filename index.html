@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Royal Tee - Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,400|Montserrat:400,600&display=swap" rel="stylesheet">
+<style>
+    html, body {
+    margin: 0;
+    padding: 0;
+}
+    :root {
+        --primary: #102E50;
+        --secondary: #1A3C6B;
+        --accent: #8DD8FF;
+        --background: #F4F6FF;
+        --white: #fff;
+        --gray: #e5e9f2;
+        --gold: #ffe0b2;
+        --font-title: 'Playfair Display', serif;
+        --font-body: 'Montserrat', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        background: var(--background);
+        color: var(--primary);
+        font-family: var(--font-body);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+    }
+    /* Navbar */
+    nav {
+        background: rgba(255, 255, 255, 0.15);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        --nav-hover-bg: var(--accent);
+    }
+    /* Solid background when scrolled or hovered */
+    nav.scrolled {
+        background: var(--white); /* solid white background */
+        color: var(--primary);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    nav:hover {
+        background: var(--white);
+        color: var(--primary);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    /*Adjust nav links color on scroll */
+    nav.scrolled .nav-links a {
+        color: var(--primary);
+    }
+    nav:hover .nav-links a {
+        color: var(--primary);
+    }
+    nav.scrolled .nav-links a:hover {
+        color: var(--accent);
+    }
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .logo-image {
+    height: 50px; /* ikut saiz  */
+    width: auto;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+    .logo-image:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s ease;
+    }
+    .logo-placeholder {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary);
+        font-weight: bold;
+    }
+    .brand-name {
+        font-family: var(--font-title);
+        font-size: 1.7rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        font-size: 1.1rem;
+    }
+    .nav-links a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+        font-size: 16px;
+    }
+    .nav-links a:hover {
+        color: var(--accent);
+    }
+    .nav-cart {
+        font-size: 1.3rem;
+        cursor: pointer;
+        position: relative;
+    }
+    .cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--accent);
+  color: var(--primary);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.cart-count.bump {
+  transform: scale(1.3);
+}
+
+        /* Hero Section */
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Full screen height */
+        background-image: url('image/coverpage (1).jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: -5rem;
+    }
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(255,255,255,0.15); /* Optional overlay */
+        z-index: -1;
+    }
+    .hero-image {
+    display: none; /* No need for this now */
+    }
+    .hero-title {
+        font-family: var(--font-title);
+        font-size: 2.7rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+        letter-spacing: 1px;
+        text-shadow: 
+            0 0 5px var(--white),
+            0 0 10px var(--white);
+        }
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 2rem;
+            font-style: italic;
+            letter-spacing: 1px;
+            text-shadow: 
+                0 0 4px var(--secondary),
+                0 0 8px var(--secondary);
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+        }
+        .btn {
+            padding: 0.9rem 2.2rem;
+            border: none;
+            border-radius: 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            font-family: var(--font-body);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+        .btn-accent {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        .btn-accent:hover {
+            background: #b3e6ff;
+        }
+        /* Collections */
+        .collections {
+            background-image: url('image/mansion.jpg'); 
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 4rem 3rem;
+            position: relative;
+            color: white; 
+            margin: auto;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .collections-title {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .collections-list {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .collection-card {
+            background: rgba(255, 255, 255, 0.263);
+            border-radius: 1rem;
+            box-shadow: 0 2px 12px rgba(16,46,80,0.07);
+            padding: 2rem 1.5rem;
+            min-width: 180px;
+            flex: 1 1 180px;
+            max-width: 220px;
+            transition: transform 0.18s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .collection-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--accent);
+        }
+        .collection-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .collection-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+        /* Featured Products */
+        .products-title {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            text-align: center;
+        }
+        .products {
+    background-image: url('image/vibe.jpg'); 
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 4rem 1rem;
+    position: relative;
+    color: white; /* supaya teks jelas jika background gelap */
+    margin: auto;
+    width: 100%;
+}
+
+.products::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* overlay gelap */
+    z-index: 1;
+}
+
+.products > * {
+    position: relative;
+    z-index: 2; /* pastikan content di atas background */
+}
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+        @media screen and (max-width: 600px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
+        .product-card {
+            background: rgba(255, 255, 255, 0.505);
+            border-radius: 1rem;
+            box-shadow: 0 2px 12px rgba(16,46,80,0.07);
+            padding: 1.5rem 1rem 1.2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.18s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--accent);
+        }
+        .product-image {
+            width: 120px;
+            height: 120px;
+            background: var(--yellow);
+            border-radius: 0.7rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--secondary);
+            /* Replace with product image */
+        }
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .product-price {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        @media screen and (max-width: 600px) {
+            .product-card {
+                padding: 1rem;
+            }
+            .product-image {
+                width: 100px;
+                height: 100px;
+            }
+            .product-name {
+                font-size: 1rem;
+            }
+            .product-price {
+                font-size: 0.9rem;
+            }
+            
+        }
+        .add-cart-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 1.5rem;
+            padding: 0.5rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .add-cart-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        /* Newsletter */
+        @media screen and (max-width: 600px) {
+            .newsletter {
+                padding: 2rem 1rem;
+            }
+        }
+        .newsletter {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            margin-top: 0rem;
+        }
+        .newsletter-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .newsletter-input {
+            padding: 0.7rem 1.2rem;
+            border-radius: 2rem;
+            border: none;
+            font-size: 1rem;
+            min-width: 220px;
+            outline: none;
+        }
+        .newsletter-btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .newsletter-btn:hover {
+            background: #b3e6ff;
+        }
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 2rem 1rem 1rem 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        .footer-links, .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a, .footer-social a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover, .footer-social a:hover {
+            color: var(--white);
+        }
+        .footer-copy {
+            font-size: 0.95rem;
+            color: #b3c6e0;
+            margin-top: 0.5rem;
+        }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .collections-list, .footer-links, .footer-social {
+                gap: 1rem;
+            }
+            .products-grid {
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 700px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .collections-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 2.5rem 0.5rem 2rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="script.js"></script>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-logo">
+            <div class="logo-placeholder">
+            <a href="index.html"><img src="image/Logo.png" alt="Royal Tee Logo" class="logo-image" /></a>    
+            </div>
+            <span class="brand-name">Royal Tee</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="listingpage.html">Shop</a>
+            <a href="aboutUs.html">About</a>
+            <a href="Cartpage.html" class="nav-cart">
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">Royal Tee</h1>
+        <p class="hero-tagline">Show Who You Are</p>
+        <div class="hero-buttons">
+            <button class="btn btn-accent" onclick="scrollToSection('collections')">Discover Our Style</button>
+            <a href="listingpage.html" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+    
+        <!-- Highlighted Collections -->
+    <section class="collections" id="collections">
+        <h2 class="collections-title">Highlighted Collections</h2>
+        <div class="collections-list">
+            <div class="collection-card">
+                <div class="collection-icon"><img src="image/Streetwear.jpg" width="120" height="160"></div>
+                <div class="collection-name">Streetwear</div>
+            </div>
+            <div class="collection-card">
+                <div class="collection-icon"><img src="image/Casual.jpg" width="120" height="160"></div>
+                <div class="collection-name">Casual</div>
+            </div>
+            <div class="collection-card">
+                <div class="collection-icon"><img src="image/Formal.jpg" width="120" height="160"></div>
+                <div class="collection-name">Formal</div>
+            </div>
+            <div class="collection-card">
+                <div class="collection-icon"><img src="image/Golf.jpg" width="120" height="160"></div>
+                <div class="collection-name">Golf Attire</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section class="products" id="products">
+        <h2 class="products-title">Featured Products</h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- Example Product Cards -->
+            <div class="product-card">
+                <div class="product-image"><img src="image/royalwool/Woolblazer.png" width="130"></div>
+                <div class="product-name">Royal Wool Blazer</div>
+                <div class="product-price">$320</div>
+                <button 
+  class="add-to-cart add-cart-btn" 
+  data-id="101" 
+  data-name="Royal Wool Blazer" 
+  data-price="320" 
+  data-image="image/royalwool/Woolblazer.png">
+  Add to Cart
+</button>
+
+            </div>
+            <div class="product-card">
+                <div class="product-image"><img src="image/sneakers/royalsneakers1.png" width="150"></div>
+                <div class="product-name">Royal Sneakers</div>
+                <div class="product-price">$125</div>
+                <button 
+  class="add-to-cart add-cart-btn" 
+  data-id="102" 
+  data-name="Royal Sneakers" 
+  data-price="125" 
+  data-image="image/sneakers/royalsneakers1.png">
+  Add to Cart
+</button>
+
+            </div>
+            <div class="product-card">
+                <div class="product-image"><img src="image/cap/Elitecap.png" width="160"></div>
+                <div class="product-name">Elite White Cap</div>
+                <div class="product-price">$80</div>
+                <button 
+  class="add-to-cart add-cart-btn" 
+  data-id="103" 
+  data-name="Elite White Cap" 
+  data-price="80" 
+  data-image="image/cap/Elitecap.png">
+  Add to Cart
+</button>
+
+            </div>
+            <div class="product-card">
+                <div class="product-image"><img src="image/classicpoloshirt/Poloshirt-rmvbg.png" width="140"></div>
+                <div class="product-name">Classic Polo Shirt</div>
+                <div class="product-price">$180</div>
+                <button 
+  class="add-to-cart add-cart-btn" 
+  data-id="104" 
+  data-name="Classic Polo Shirt" 
+  data-price="180" 
+  data-image="image/classicpoloshirt/Poloshirt-rmvbg.png">
+  Add to Cart
+</button>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter / Subscribe Section -->
+    <section class="newsletter">
+        <div class="newsletter-title">Subscribe to Our Newsletter</div>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Enter email here" required>
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+        <div id="newsletterMsg" style="margin-top:1rem;font-size:1rem;"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <a href="https://www.instagram.com/royaltee_officialstore" title="Instagram" aria-label="Instagram">Instagram</a>
+            <a href="https://www.facebook.com/royal.tee.official.store" title="Facebook" aria-label="Facebook">Facebook</a>
+            <a href="https://x.com/royal_tee_store" title="Twitter" aria-label="Twitter">Twitter</a>
+        </div>
+        <div class="footer-links">
+            <a href="https://wa.me/01114478390?I'm%interested%to%know%more%about%Royal%Tee">Contact</a>
+
+        </div>
+        <div class="footer-copy">
+            &copy; 2025 Royal Tee. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+    // Featured products data
+    const featuredProducts = [
+        {
+            id: 101,
+            name: "Classic Navy Blazer",
+            price: 320,
+            image: "image/royalwool/NavyBlazer-removebg.png",
+            quantity: 1
+        },
+        {
+            id: 102,
+            name: "Royal Sneakers",
+            price: 125,
+            image: "image/sneakers/leatherSneakers-removebg.png",
+            quantity: 1
+        },
+        {
+            id: 103,
+            name: "Elite White Cap",
+            price: 60,
+            image: "image/cap/Elitecap.png",
+            quantity: 1
+        },
+        {
+            id: 104,
+            name: "Classic Polo Shirt",
+            price: 140,
+            image: "image/classicpoloshirt/Poloshirt-rmvbg.png",
+            quantity: 1
+        }
+    ];
+
+    function addToCartByName(productName) {
+        const product = featuredProducts.find(p => p.name === productName);
+        if (product) {
+            addToCart(product);
+        } else {
+            alert("Product not found");
+        }
+    }
+
+        // Navigation scroll effect
+        const nav = document.querySelector("nav");
+        
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 551) {
+                nav.classList.add("scrolled");
+            } else {
+                nav.classList.remove("scrolled");
+            }
+        });
+        
+        // Smooth scroll to section
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+
+        // Newsletter subscribe
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail').value;
+            document.getElementById('newsletterMsg').textContent = "Thank you for subscribing!";
+            document.getElementById('newsletterForm').reset();
+        });
+    </script>
+</body>
+</html>
